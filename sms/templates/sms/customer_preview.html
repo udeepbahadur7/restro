@@ -1,0 +1,35 @@
+{% extends 'admin/base_site.html' %}
+{% load url_query_replace %}
+{% block breadcrumbs %}{% endblock %}
+{% block branding %}{% endblock %}
+{% block usertools %}{% endblock %}
+{% block content %}
+  <div>
+    {{ paginator.count }} customers selected
+  </div>
+  <div>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+      </tr>
+    {% for customer in object_list %}
+      <tr>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.phone_number }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  </div>
+  <p class="paginator">
+    {% for page in paginator.page_range %}
+      {% if page == page_obj.number %}
+        <span class="this-page">{{ page }}</span>
+      {% else %}
+      <a href="?{% url_query_replace page=page %}">{{ page }}</a>
+      {% endif %}
+    {% endfor %}
+
+  </p>
+{% endblock content %}
+

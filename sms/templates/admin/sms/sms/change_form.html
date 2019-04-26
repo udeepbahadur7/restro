@@ -1,0 +1,27 @@
+{% extends 'admin/change_form.html' %}
+
+{% block after_field_sets %}
+  {{ block.super }}
+  <fieldset class="module aligned " id="customer_filters">
+    {{ customer_filter.form.as_p }}
+  </fieldset>
+
+  <iframe id="preview_frame" src="{% url 'admin:sms_sms_previewlist' %}" width="100%" height="100%"></iframe>
+  <script>
+    document.getElementById('id_entry_timestamp_0').onchange = function () {
+        from_date =  document.getElementById('id_entry_timestamp_0').value
+        to_date =  document.getElementById('id_entry_timestamp_1').value
+
+        document.getElementById('preview_frame').src = "{% url 'admin:sms_sms_previewlist' %}?entry_timestamp_0="+from_date+"&entry_timestamp_1="+to_date
+    }
+    document.getElementById('id_entry_timestamp_1').onchange = document.getElementById('id_entry_timestamp_0').onchange
+
+    function formStylingCode() {
+        filter_doms = document.querySelectorAll('#customer_filters > p')
+        for (var counter = 0 ; counter < filter_doms.length ; counter++ ){
+            filter_doms[counter].className += 'form-row'
+        }
+    }
+    formStylingCode()
+  </script>
+{% endblock %}

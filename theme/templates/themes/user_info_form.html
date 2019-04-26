@@ -1,0 +1,76 @@
+<div class="form animated" id="id_userinfoform">
+        <p>Please fill in the form to use the free WiFi. Thank you.</p>
+        <p id="form_error" class="help is-warning"></p>
+        <form name="customerdata" action="{% url "wifiportal:saveCustomer" %}" method="post"
+              onsubmit="return doNormalLogin()">
+            {% if new_customer %}
+            <div class="control" style="margin-top: 0px;">
+                <input name="customer_name" class="input" placeholder="Your Name" type="text"/>
+                <div id="customer_name_error" class="help is-warning"></div>
+            </div>
+            <div class="control" style="margin-top: 0px;">
+                <input name="customer_contact" class="input is-danger" placeholder="Mobile No." type="number"/>
+                <div id="customer_contact_error" class="help is-warning"></div>
+            </div>
+            <input id="id_deals_subscription" name="customer_deals_subscription" type="checkbox" checked />
+            <label for="id_deals_subscription" style="font-size: x-small">Subscribe for the deals and offers from {{ organization.name | title }}.</label><br />
+              <div style="font-size: x-small;line-height: 1.25"><sup>*</sup> Your data will remain confidential and will be used solely for the promotion and offers from the organization.</div>
+            <div id="customer_contact_error" class="error"></div>
+
+            <input name="customer_organization" class="input" type="hidden" value="{{ organization.id }}"/>
+            {% endif %}
+
+            <div class="control">
+                <button class="button is-danger is-rounded" type="submit" id="id_user_info_button">Proceed</button>
+            </div>
+        </form>
+</div>
+<script>
+    function doNormalLogin(evt) {
+        context = {
+            name: document.customerdata.customer_name && document.customerdata.customer_name.value,
+            phone_number: document.customerdata.customer_contact && document.customerdata.customer_contact.value,
+            deals_subscription: document.customerdata.customer_deals_subscription && document.customerdata.customer_deals_subscription.checked,
+            organization: '{{ organization.id }}',
+            mac_address: '{{ mikrotik_input.mac }}',
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        }
+
+        formData = serializeObjectToUrl(context)
+        DOMUtils.addClass(document.getElementById('id_user_info_button'), 'is-loading')
+        postRequest(
+            document.customerdata.action,
+            formData,
+
+            function onLoad(request) {
+                if (request.status >= 200 && request.status < 400) {
+                    if (context.name){
+                        setGreetings && setGreetings(context.name)
+                    }
+
+                    nextFormPlease(
+                        document.getElementById('id_userinfoform'),
+                        document.getElementById('id_password_container')
+                    )
+
+                } else {
+                    var data = JSON.parse(request.responseText);
+                    var errors = data.errors
+                    document.getElementById('customer_name_error').innerHTML = errors.name || ''
+                    document.getElementById('customer_contact_error').innerHTML = errors.phone_number || ''
+                    document.getElementById('form_error').innerHTML = errors.message || ''
+                }
+                DOMUtils.removeClass(document.getElementById('id_user_info_button'), 'is-loading')
+            },
+
+            function onError() {
+                alert("Network Connection Failed.")
+                DOMUtils.removeClass(document.getElementById('id_user_info_button'), 'is-loading')
+            }
+        )
+
+        return false
+    }
+
+
+</script>

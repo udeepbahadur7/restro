@@ -1,0 +1,1 @@
+/tool fetch keep-result=no mode=http address=qc.infiniasmart.com host=qc.infiniasmart.com src-path=("routerlog/status/\?mac_address=".[/interface ethernet get 0 mac-address]."&nasid=".[/system identity get name]."&os_date=Mikrotik&system_time=".[/system clock get time]."&uptime=".[/system resource get uptime]."&load_average=".[/system resource get cpu-load])

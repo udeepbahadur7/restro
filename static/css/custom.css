@@ -1,0 +1,43 @@
+.thumb #items-featured {
+    height: auto;
+    min-height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    box-shadow: 3px 5px #34313440;
+}
+
+@media (max-width: 576px) {
+
+    .navbar-brand .navbar-item img {
+        height: auto;
+        max-width: 180px;
+    }
+    .section {
+    padding: 0.5rem 1rem;
+    }
+    .heading{
+        margin: 0px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .special-items{
+        max-height:450px;
+        overflow: visible;
+    }
+    .special{
+        margin: 2px auto;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #f1f1f1;
+        width: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    #id_user_info_button {
+        margin-top: 20px;
+    }
+    #id_todaysSpecialButton{
+        margin-top: 20px;
+    }
+}

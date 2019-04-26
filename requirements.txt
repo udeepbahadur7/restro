@@ -1,0 +1,15 @@
+django===1.11
+gunicorn
+Pillow
+psycopg2
+django-admin-interface==0.5.9
+easy-thumbnails
+
+selenium>3
+django-activity-stream
+Sphinx==1.7.2
+django-docs
+XlsxWriter
+django-admin-rangefilter
+django-filter
+Celery

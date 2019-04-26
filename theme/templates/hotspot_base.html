@@ -1,0 +1,152 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}InfiniaSmart Wifi Solutions{% endblock %}</title>
+    <style type="text/css">
+      .animated {-webkit-animation-duration: 1s;animation-duration: 1s;-webkit-animation-fill-mode: both;animation-fill-mode: both;  }
+      @-webkit-keyframes fadeOutDown {from {opacity: 1;} to {opacity: 0;-webkit-transform: translate3d(0, 100%, 0);transform: translate3d(0, 100%, 0);} }
+      @keyframes fadeOutDown {from {opacity: 1;} to {opacity: 0;-webkit-transform: translate3d(0, 100%, 0);transform: translate3d(0, 100%, 0);}}
+      .fadeOutDown {-webkit-animation-name: fadeOutDown;animation-name: fadeOutDown;}
+      @-webkit-keyframes fadeOutDownBig {from {opacity: 1;} to {opacity: 0;-webkit-transform: translate3d(0, 2000px, 0);transform: translate3d(0, 2000px, 0);} }
+    </style>
+    {% block head_elements %}{% endblock %}
+</head>
+<body>
+{% block body_elements %}{% endblock %}
+
+{% if mikrotik_input.chap_id %}
+    <form name="sendin" action="{{ mikrotik_input.link_login_only }}" method="post">
+        <input type="hidden" name="username"/>
+        <input type="hidden" name="password"/>
+        <input type="hidden" name="dst" value="{{ redirect_url_after_login }}"/>
+        <input type="hidden" name="popup" value="true"/>
+    </form>
+
+{#    <script type="text/javascript" src="{% static "mikrotik/md5.js" %}"></script>#}
+    <script type="text/javascript">
+        <!--
+        function doLogin(username, password_hash) {
+            document.sendin.username.value = username;
+            document.sendin.password.value = password_hash;
+            document.sendin.submit();
+            return false;
+        }
+
+        //-->
+    </script>
+{% endif %}
+
+{#  <div align="center">#}
+{#    <a href="{{ mikrotik_input.link_login_only }}?target=lv&amp;dst={{ mikrotik_input.link_orig_esc }}">Login Page</a>#}
+{#  </div>#}
+{##}
+{#  <div class="notice" style="color: #c1c1c1; font-size: 9px">#}
+{#      Please log on to use the internet hotspot service#}
+{#      <br />#}
+{#      {% if trial == 'yes' %}#}
+{#          Free trial available,#}
+{#          <a style="color: #FF8080"href="{{ mikrotik_input.link_login_only }}?dst={{ mikrotik_input.link_orig_esc }}&amp;username=T-{{ mikrotik_input.mac_esc }}">click here</a>.#}
+{#      {% endif %}#}
+{#  </div><br />#}
+
+<form name="login" action="{{ mikrotik_input.link_login_only }}" method="post">
+    <input type="hidden" name="dst" value="{{ redirect_url_after_login }}" />
+    <input type="hidden" name="popup" value="true" />
+    <input style="width: 80px" name="username" type="hidden" />
+    <input style="width: 80px" name="password" type="hidden" />
+</form>
+
+<script type="text/javascript">
+    <!--
+    function doRouterLogin(username, password_hash) {
+        {% if mikrotik_input.chap_id %}
+            return doLogin(username, password_hash);
+        {% else %}
+            document.login.submit();
+            return false;
+        {% endif %}
+    }
+
+    function serializeObjectToUrl(obj) {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      return str.join("&");
+    }
+
+    var DOMUtils = {
+        addClass: function (el, className) {
+            if (el.classList)
+              el.classList.add(className);
+            else
+              el.className += ' ' + className;
+            return true;
+        },
+        removeClass: function (el, className) {
+            if (el.classList)
+              el.classList.remove(className);
+            else
+              el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            return true;
+        }
+    }
+
+    function postRequest(url, formUrlEncodedData, onLoad, onError) {
+        var request = new XMLHttpRequest();
+        request.open('POST', url, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.onload = function () {
+            return onLoad && onLoad(request)
+        };
+
+        request.onerror = function () {
+            return onError && onError()
+        };
+
+        request.send(formUrlEncodedData)
+        return request
+    }
+
+    var partial_forms = document.getElementsByClassName("partial_forms");
+    var activeIndex
+
+    if (partial_forms.length) {
+        activeIndex = 0
+    }
+
+    function hideAllForms(){
+        var partial_forms = document.getElementsByClassName("partial_forms");
+
+        for (var i = 1; i < partial_forms.length ; i++){
+            slideNode = partial_forms[i]
+            DOMUtils.addClass(slideNode, 'display_none')
+        }
+    }
+    hideAllForms()
+
+    function nextFormPlease(fadeOutElement, fadeInElement){
+        DOMUtils.addClass(fadeOutElement, 'fadeOutDown')
+        setTimeout(function () {
+            var partial_forms = document.getElementsByClassName("partial_forms");
+            nowElement = partial_forms[activeIndex]
+            activeIndex = activeIndex + 1
+            nextElement = partial_forms[activeIndex]
+
+            DOMUtils.addClass(nowElement, 'display_none')
+            DOMUtils.removeClass(nextElement, 'display_none')
+            DOMUtils.addClass(fadeInElement, 'fadeInUp')
+        }, 1000)
+        return 0
+    }
+    //-->
+</script>
+
+{% if error %}<br/>
+    <div style="color: #FF8080; font-size: 9px">{{ mikrotik_input.error }}</div>{% endif %}
+</body>
+</html>

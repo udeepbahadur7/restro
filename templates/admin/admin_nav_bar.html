@@ -1,0 +1,169 @@
+{% load i18n static %}
+<nav class="navbar ">
+  <div class="navbar-brand">
+    <div class="navbar-burger burger" data-target="navMenubd">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navMenubd" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item">
+        {% block welcome-msg %}
+          {% trans 'Welcome, ' %}
+          <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+        {% endblock %}
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link">
+          Promotions
+        </div>
+        <div class="navbar-dropdown is-right">
+          <a class="navbar-item " href="{% url 'admin:wifiportal_commodity_add' %}">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <p>
+                    <strong>Add Promotions</strong>
+                    <br>
+                    <small>Add new promotions</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <a class="navbar-item " href="{% url 'admin:wifiportal_commodity_changelist' %}">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <p>
+                    <strong>View Promotions</strong>
+                    <br>
+                    <small>View list of promotions</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <a class="navbar-item " href="{% url 'mtemulator:mtlogin' %}" target="_blank">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <p>
+                    <strong>Preview Hotspot Page</strong>
+                    <br>
+                    <small>Preview of WIFI hotspot page</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable is-mega">
+        <div class="navbar-link">
+          Manage Wifi
+        </div>
+        <div id="blogDropdown" class="navbar-dropdown is-right" data-style="width: 18rem;">
+          <small>
+            {% if request.user.organization.hotspotconfig %}
+              {% if perms.wifiportal.manage_hotspot_password %}
+              <a class="navbar-item "
+                 href="{% url 'admin:wifi_password_change' request.user.organization.hotspotconfig.id %}">
+                Change Hotspot Password
+              </a>
+              {% endif %}
+              <a class="navbar-item "
+                 href="{% url 'admin:wifi_redirect_change' request.user.organization.hotspotconfig.id %}">
+                Change Page Redirect
+              </a>
+                {% if perms.wifiportal.can_add_advertisement_image %}
+                <a class="navbar-item "
+                 href="{% url 'admin:add_advertisement_image' request.user.organization.hotspotconfig.id %}">
+                Add Advertisement Image
+              </a>
+                    {% endif %}
+            {% endif %}
+          </small>
+        </div>
+      </div>
+      {% if perms.sms.add_sms %}
+      <div class="navbar-item has-dropdown is-hoverable is-mega">
+        <div class="navbar-link">
+          SMS
+        </div>
+        <div id="blogDropdown" class="navbar-dropdown is-right" data-style="width: 18rem;">
+          <small>
+            <a class="navbar-item "
+               href="{% url 'admin:sms_sms_add' %}">
+              Send SMS
+            </a>
+            <a class="navbar-item "
+               href="{% url 'admin:sms_sms_changelist' %}">
+              SMS History
+            </a>
+            <a class="navbar-item "
+               href="{% url 'admin:sms_customersms_changelist' %}">
+              SMS Logs
+            </a>
+          </small>
+        </div>
+      </div>
+      {% endif %}
+      <div class="navbar-item has-dropdown is-hoverable is-mega">
+        <div class="navbar-link">
+          Profile Settings
+        </div>
+        <div id="blogDropdown" class="navbar-dropdown is-right" data-style="width: 18rem;">
+          <small>
+            <a class="navbar-item is-right" href="{% url 'admin:dashboard' %}">{% trans 'Dashboard' %}</a>
+
+            {% if user.is_active and user.is_superuser %}
+              <a class="navbar-item is-right" href="{% url 'infiniadocs:docs_files' 'index.html' %}">{% trans 'Documentation' %}</a>
+            {% endif %}
+            {% if user.is_active and user.is_staff %}
+              {% url 'django-admindocs-docroot' as docsroot %}
+              {% if docsroot %}
+                <a class="navbar-item is-right" href="{{ docsroot }}">{% trans 'Documentation' %}</a>
+              {% endif %}
+            {% endif %}
+          <hr class="navbar-divider">
+            {% if user.has_usable_password %}
+              <a class="navbar-item is-right" href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a>
+            {% endif %}
+            <a class="navbar-item is-right" href="{% url 'admin:logout' %}?next={% url 'admin:login' %}">{% trans 'Log out' %}</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any nav burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+
+                    // Get the target from the "data-target" attribute
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+
+                    // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });
+</script>

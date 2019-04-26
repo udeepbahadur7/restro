@@ -1,0 +1,268 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Infinia Smart</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/font-awesome.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/simple-line-icons.css" %}" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+      <!-- Custom styles for this template -->
+    <link href="{% static "css/new-age.min.css" %}" rel="stylesheet">
+    <style>
+        .contact {
+            background-image: url("{% static "images/marketing.jpg" %}");
+            background-size:     cover;
+            background-repeat:   no-repeat;
+            background-position: center center;
+        }
+        .ghost-button {
+        position: relative;
+        display: inline-block;
+        width: 120px;
+        padding: 8px;
+        color: #fff;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        text-align: center;
+        outline: none;
+        text-decoration: none;
+        transition: background-color 0.2s ease-out,
+        color 0.2s ease-out;
+        }
+        .ghost-button:hover,
+        .ghost-button:active {
+            background-color: rgba(5, 4, 4, 0.52);
+            color: #ff6b0e;
+            transition: background-color 0.3s ease-in,
+            color 0.3s ease-in;
+        }
+        .dark_theme h2, .dark_theme h4 {
+            color: rgba(255, 255, 255, 1);
+            text-shadow: 1px 1px 2px black;
+        }
+        .third_section {
+            background-image: url("{% static "images/marketing.jpg" %}");
+            background-size:     cover;
+            background-repeat:   no-repeat;
+            background-position: center center;
+        }
+        .third_section_container {
+            background-color: rgba(0,255,255,0.1);
+            margin: 0;
+            display:flex;
+            height: 100%;
+            align-items:center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 5em;
+        }
+        h1 {
+            font-size: xx-large;
+        }
+        h2, h4 {
+            text-align: center;
+        }
+        .icon_image {
+            width: 80px;
+            height: 80px;
+        }
+        .brand-name {
+            font-size: xx-large;
+            color: white;
+            font-weight: bold;
+        }
+        .macphone {
+            max-width: 100%;
+            padding-top: 100px;
+        }
+        #mainNav .navbar-nav > li > a.active {
+            color: white !important;
+        }
+        #mainNav .navbar-brand {
+            color: white;
+        }
+    </style>
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: #ff6b0e55; ">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger brand-name" href="#page-top">InfiniaSmart</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+              <li class="nav-item">
+                  <a href="{% url 'admin:login' %}" class="nav-link js-scroll-trigger ghost-button">Login</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead">
+        <section class="home" id="home">
+          <div class="container h-100">
+            <div class="row h-100">
+              <div class="col-lg-6 my-auto">
+                <div class="header-content mx-auto">
+                  <h1 class="mb-5">
+                      <br /><br />
+                      An Innovative WiFi Marketing App Promoting Your Business
+                  </h1>
+                  <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Get Involved!</a>
+                </div>
+              </div>
+              <div class="col-lg-6 my-auto">
+                        <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                        <img src="{% static "images/macphone.png" %}" class="img-fluid macphone" alt="">
+
+              </div>
+            </div>
+          </div>
+        </section>
+    </header>
+
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>Features, Customizations</h2>
+          <p class="text-muted">Wifi management according to business needs.</p>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 my-auto">
+            <div class="device-container">
+              <div class="device-mockup iphone6_plus portrait white">
+                <div class="device">
+                  <div class="screen">
+                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                    <img src="{% static "images/phone.png" %}" class="img-fluid" alt="">
+                  </div>
+                  <div class="button">
+                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 my-auto">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="feature-item">
+                      <img src="{% static "images/Marketing Icon.PNG" %}" class="icon_image">
+{#                    <i class="icon-screen-smartphone text-primary"></i>#}
+                    <h3>Marketing</h3>
+                    <p class="text-muted">Promote Your Products and Deals Directly To Your Targeted Customers</p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="feature-item">
+                      <img src="{% static "images/Brand Awareness.JPG" %}" class="icon_image">
+{#                    <i class="icon-lock-open text-primary"></i>#}
+                    <h3>Brand Awareness</h3>
+                    <p class="text-muted">Higher Customer Engagement and Brand Recall</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="feature-item">
+                      <img src="{% static "images/Customer Tracking.PNG" %}" class="icon_image">
+{#                    <i class="icon-present text-primary"></i>#}
+                    <h3>Customer Insights</h3>
+                    <p class="text-muted">Know Your Customers Insights and Indepth Analysis</p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="feature-item">
+                      <img src="{% static "images/Customer Loyalty.JPG" %}" class="icon_image">
+{#                    <i class="icon-camera text-primary"></i>#}
+                    <h3>Customer Loyalty</h3>
+                    <p class="text-muted">Target Customers with Personalized Emails and SMS to make them come back and buy more</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="contact bg-primary third_section" id="contact">
+      <div class="third_section_container dark_theme">
+            <div>
+                <h2>Corporate Office</h2>
+                <h4>
+                    <svg enable-background="new 0 0 30 30" height="20px" id="Layer_1" version="1.1" viewBox="0 0 30 30" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="pin_1_"><path d="M26.48,13.794c0-5.789-4.692-10.481-10.48-10.481c-5.789,0-10.481,4.692-10.481,10.481   c0,1.036,0.153,2.036,0.433,2.983c1.492,6.035,10.095,12.785,10.095,12.785s9.719-7.621,10.291-13.91l-0.025-0.005   C26.421,15.046,26.48,14.427,26.48,13.794z M16.143,16.128c-2.368,0-4.288-1.92-4.288-4.288c0-2.368,1.92-4.288,4.288-4.288   c2.367,0,4.287,1.92,4.287,4.288C20.43,14.208,18.51,16.128,16.143,16.128z" fill="#f44"/></g></svg>
+                    Nepal Office: Tinkune, Kathmandu (+977-9823234247)
+                </h4>
+                <h4>
+                    <svg enable-background="new 0 0 30 30" height="20px" id="Layer_1" version="1.1" viewBox="0 0 30 30" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="pin_1_"><path d="M26.48,13.794c0-5.789-4.692-10.481-10.48-10.481c-5.789,0-10.481,4.692-10.481,10.481   c0,1.036,0.153,2.036,0.433,2.983c1.492,6.035,10.095,12.785,10.095,12.785s9.719-7.621,10.291-13.91l-0.025-0.005   C26.421,15.046,26.48,14.427,26.48,13.794z M16.143,16.128c-2.368,0-4.288-1.92-4.288-4.288c0-2.368,1.92-4.288,4.288-4.288   c2.367,0,4.287,1.92,4.287,4.288C20.43,14.208,18.51,16.128,16.143,16.128z" fill="#f44"/></g></svg>
+                    UAE Office: SAIF Zone, Sharjah (+971-55-6896019)
+                </h4>
+                <h4>
+                    <svg enable-background="new 0 0 30 30" height="20px" id="Layer_1" version="1.1" viewBox="0 0 30 30" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="pin_1_"><path d="M26.48,13.794c0-5.789-4.692-10.481-10.48-10.481c-5.789,0-10.481,4.692-10.481,10.481   c0,1.036,0.153,2.036,0.433,2.983c1.492,6.035,10.095,12.785,10.095,12.785s9.719-7.621,10.291-13.91l-0.025-0.005   C26.421,15.046,26.48,14.427,26.48,13.794z M16.143,16.128c-2.368,0-4.288-1.92-4.288-4.288c0-2.368,1.92-4.288,4.288-4.288   c2.367,0,4.287,1.92,4.287,4.288C20.43,14.208,18.51,16.128,16.143,16.128z" fill="#f44"/></g></svg>
+                    Singapore Office: International Plaza, Anson Road
+                </h4>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static "js/jquery.easing.min.js" %}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{% static "js/new-age.min.js" %}"></script>
+
+  </body>
+
+</html>

@@ -1,0 +1,11 @@
+.idea/
+.DS_Store
+*.pyc
+*.sqlite3
+media/
+venv/
+local.py
+dist-mt/
+geckodriver.log
+docs/_build/
+**/models/

@@ -1,0 +1,73 @@
+{% load static %}
+     <link href="{% static "css/custom.css" %}" rel="stylesheet" type="text/css" />
+
+<div class="list">
+  <div class="heading columns">
+        <div class="column">
+            Offer / Notice
+        </div>
+
+    </div>
+    <div id="id_today_special_error" class="error is-warning"></div>
+    <div class="special-items">
+        {% for menu_item in menu_items %}
+            <div class="special">
+                <div class="thumb">
+                    <img id="items-featured" src="{{ menu_item.image.url }}">
+                </div>
+                <div class="desc" style="float: left;">
+                    <div class="text">{{ menu_item.name }}</div>
+                    <div class="subtext"><small>{{ menu_item.description }}</small></div>
+                </div>
+            </div>
+        {% empty %}
+            No Items on the list
+        {% endfor %}
+    </div>
+    <div style="text-align: center; padding-top: 5px">
+    <button class="button is-danger" id="id_todaysSpecialButton" onclick="return handleMenuItemProceed()">
+      Proceed
+    </button>
+  </div>
+</div>
+
+<script type="application/javascript">
+    function handleMenuItemProceed(evt) {
+        context = {
+            organization: '{{ organization.id }}',
+            mac_address: '{{ mikrotik_input.mac }}',
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            chap_id: '{{ mikrotik_input.chap_id }}',
+            chap_challenge: '{{ mikrotik_input.chap_challenge }}'
+        }
+        formData = serializeObjectToUrl(context)
+
+        DOMUtils.addClass(document.getElementById('id_todaysSpecialButton'), 'is-loading')
+        postRequest(
+            "{% url 'wifiportal:getRouterCredentials' %}",
+            formData,
+
+            function onLoad(request) {
+                if (request.status >= 200 && request.status < 400) {
+                    var data = JSON.parse(request.responseText);
+                    var username = data.username
+                    var password_hash = data.password
+                    doRouterLogin(username, password_hash)
+                } else {
+                    var data = JSON.parse(request.responseText);
+                    var errors = data.errors
+                    document.getElementById('id_today_special_error').innerHTML = errors.message || ''
+                    setTimeout(function () {
+                        document.getElementById('id_today_special_error').innerHTML = ''
+                    }, 5000)
+                }
+                DOMUtils.removeClass(document.getElementById('id_todaysSpecialButton'), 'is-loading')
+            },
+
+            function onError() {
+                DOMUtils.removeClass(document.getElementById('id_todaysSpecialButton'), 'is-loading')
+            }
+        )
+        return false
+    }
+</script>

@@ -1,0 +1,183 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list %}
+{% block extrahead %}
+  {{ block.super }}
+  <style>
+  #tile-box {
+    margin: auto;
+    text-align: center;
+    background-color: #d3d9df;
+  }
+
+  .tile {
+    width: 15em;
+    background-color: #FFFFFF88;
+    margin: 1em;
+    padding: 0;
+    display: inline-block;
+    clear: left;
+    vertical-align: top;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .date-range {
+    color: #0005;
+    text-align: right;
+    padding: 0px 10px;
+  }
+
+  .tile>h2 {
+    padding: 0;
+    font-size: 3em;
+    font-weight: 100;
+    margin: 0.5em 0.5em 0;
+  }
+  .tile>h3 {
+    margin: .8em 0em .9em 0em;
+  }
+  .date-range-form > p {
+    display: inline-block;
+  }
+  .date-range-form {
+    display: inline-block;
+  }
+  button {
+    padding: 6px 8px;
+  }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div id="tile-box">
+      <div class="date-range">
+        <small>* Data aggregated from {{ from_time|date:"D d M Y" }} {{ from_time|time:"H:i" }} to {{ to_time|date:"D d M Y" }} {{ to_time|time:"H:i" }}</small>
+      </div>
+      <div class="tile">
+        <h2>{{ total_session_count }}</h2>
+        <h3>Active Users Count</h3>
+      </div>
+      <div class="tile">
+        <h2>{{ new_user_count }}</h2>
+        <h3>New Users Count</h3>
+      </div>
+      <div class="tile" style="width: 20em;">
+        <h2>{{ most_active_day }}</h2>
+        <h3>Most Busy Day</h3>
+      </div>
+      <div class="tile">
+        <h2>{{ most_active_hour }}</h2>
+        <h3>Most Active Hour</h3>
+      </div>
+  </div>
+    <div class="date-range">
+      <form class="date-range-form">
+        {{ date_range_form.as_p }}
+        <button type="submit">Apply Range</button>
+      </form>
+      <button onClick="location.href='{% url 'admin:dashboard' %}'">Reset</button>
+    </div>
+  <div>
+
+  </div>
+  <div style="margin: 40px 50px">
+    <canvas id="activeUserChart"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="newUserChart"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="timeHeatMap"></canvas>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script>
+  var activeUserChartCtx = document.getElementById("activeUserChart").getContext('2d');
+  var activeUserChart = new Chart(activeUserChartCtx, {
+      type: 'line',
+      data: {
+          labels: {{ active_user_x_axis_labels | safe }},
+          datasets: {{ active_user_datasets | safe }}
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          },
+          legend: {
+              position: 'right',
+
+          },
+          title: {
+              display: true,
+              fontSize: '20',
+              text: 'Daily Active Users Stat'
+          },
+      },
+  });
+  </script>
+
+  <script>
+  var ctx = document.getElementById("newUserChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: {{ new_user_x_axis_labels | safe }},
+          datasets: {{ new_user_datasets | safe }}
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          },
+          legend: {
+              position: 'right',
+
+          },
+          title: {
+              display: true,
+              fontSize: '20',
+              text: 'Daily New Users Stat'
+          },
+      },
+  });
+  </script>
+
+  <script>
+  var timeCtx = document.getElementById("timeHeatMap").getContext('2d');
+  var timeHeatChart = new Chart(timeCtx, {
+      type: 'line',
+      data: {
+          labels: {{ time_heat_map_labels | safe }},
+          datasets: {{ time_heat_map_datasets | safe }}
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          },
+          legend: {
+              position: 'right',
+
+          },
+          title: {
+              display: true,
+              fontSize: '20',
+              text: 'Active user by time'
+          },
+      },
+  });
+  </script>
+{% endblock %}

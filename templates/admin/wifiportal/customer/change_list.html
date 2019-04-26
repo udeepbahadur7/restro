@@ -1,0 +1,9 @@
+{% extends 'admin/change_list.html' %}
+{% load i18n admin_static admin_urls %}
+
+{% block object-tools-items %}
+    {{  block.super }}
+      <li>
+          <a href="{% if not user.is_superuser %}{% url 'admin:downloadCustomerXlsx' %}{% else %}#{% endif %}">Download as Excel ⬇</a>
+      </li>
+{% endblock %}

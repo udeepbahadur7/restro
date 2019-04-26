@@ -1,0 +1,163 @@
+{% extends '../hotspot_base.html' %}
+{% block title %}{{ organization.name | title }} HotSpot{% endblock %}
+{% block head_elements %}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">#}
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background: #fe8c00; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #f83600, #fe8c00); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #f83600, #fe8c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+            min-height: 100%;
+            background-size: cover;
+            color: white;
+            width: 100%;
+            margin: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .control {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .special-items {
+            max-height: 330px;
+            overflow-y: scroll;
+        }
+
+        .special {
+            margin: 5px auto;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f1f1f1;
+            width: 100%;
+            float: left;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .content>h4{
+            margin-bottom: 0px;
+        }
+        .navbar {
+            border-bottom: 1px solid #f1f1f1;
+            margin-bottom: 1.5rem;
+        }
+        .heading {
+            color: white !important;
+            font-size: 20px;
+            margin-top: 20px;
+            text-transform: none;
+        }
+
+        .subtext {
+            color: #FFEB3B;
+            font-size: 20px;
+        }
+
+        .thumb {
+            float: left;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            width: 160px;
+        }
+
+        .thumb img {
+            width: 90px;
+            height: 60px;
+        }
+
+        .desc {
+            float: left;
+            width: 100%;
+        }
+
+        .desc .text {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .display_none {
+            display: none;
+        }
+        .form {
+          padding-top: 10px;
+        }
+        .form_label {
+          font-size: small;
+        }
+    </style>
+{% endblock %}
+
+{% block body_elements %}
+    <section class="section">
+        <div class="container">
+            <nav class="navbar is-transparent" style="background-color: transparent" role="navigation" aria-label="dropdown navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item">
+                        <img src="{{ organization.logo.url }}" alt="{{ organization.name | title }} logo" style="max-height: 3.75rem; border-radius: 5px;">
+                    </a>
+                    <div>
+                        <div class="content">
+                            <h4 class="heading">{{ organization.name | title }}</h4>
+                            <p style="color: white;">{{ organization.location }}</p>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div id="id_greetings">
+            {% if customer %}
+                Hi {{ customer.name }}, Welcome to {{ organization.name | title }}.
+            {% endif %}
+            </div>
+
+            {% if customer.blocked %}
+                <p>You are blocked</p>
+            {% else %}
+
+                {% if new_customer %}
+                    <div class="partial_forms">
+                        {% include './user_info_form.html' %}
+                    </div>
+                {% endif %}
+                {% if ask_hotspot_password %}
+                    <div class="partial_forms">
+                        {% include './wifi_password_form.html' %}
+                    </div>
+                {% endif %}
+                {% if can_add_advertisement_image and advertisement_image %}
+                    <div class="partial_forms">
+                        {% include './advertisement_image.html' %}
+                    </div>
+                {% endif %}
+                <div class="partial_forms">
+                    {% include './todays_special_card.html' %}
+                </div>
+                <div style="font-size: small;text-align: center;padding:0px; padding-top:15px">
+                  Powered by InfiniaSmart
+                </div>
+            {% endif %}
+        </div>
+    </section>
+    <script type="application/javascript">
+    function setGreetings(username) {
+        document.getElementById('id_greetings').innerHTML = 'Hi ' + username + ', Welcome to {{ organization.name | title }}.'
+    }
+    </script>
+
+{% endblock %}

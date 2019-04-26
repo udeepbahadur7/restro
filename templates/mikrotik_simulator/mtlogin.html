@@ -1,0 +1,27 @@
+<html><head><title>SIMULATED LOGIN PAGE</title></head><body>
+{% if simultate_chap_id %}
+<noscript><center><b>JavaScript required. Enable JavaScript to continue.</b></center></noscript>
+{% endif %}
+<center>SIMULATED SIMULATED!!!! If you are not redirected in a few seconds, click 'continue' below<br>
+<form name="redirect" action="{% url 'wifiportal:hotspotView' organization_id %}" method="post">
+<input type="hidden" name="mac" value="{{ simulated_mac }}">
+<input type="hidden" name="ip" value="{{ simulated_ip }}">
+<input type="hidden" name="username" value="{{ simulated_username }}">
+<input type="hidden" name="link_login" value="{% url 'mtemulator:mtlogin' %}">
+<input type="hidden" name="link_orig" value="{{ simulated_link_orig }}">
+<input type="hidden" name="error" value="{{ simulated_error }}">
+<input type="hidden" name="chap_id" value="{{ simulated_chap_id }}">
+<input type="hidden" name="chap_challenge" value="{{ simulated_chap_challenge }}">
+<input type="hidden" name="link_login_only" value="{% url 'mtemulator:mtlogin' %}">
+<input type="hidden" name="link_orig_esc" value="{{ simulated_link_orig }}">
+<input type="hidden" name="mac_esc" value="{{ simulated_mac }}">
+<input type="submit" value="continue">
+</form>
+    SIMULATED SIMULATED!!!!
+<script language="JavaScript">
+<!--
+   document.redirect.submit();
+//-->
+</script></center>
+</body>
+</html>

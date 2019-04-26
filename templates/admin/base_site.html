@@ -1,0 +1,15 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n static %}
+{% block extrahead %}
+    <!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+    <link rel="stylesheet" type="text/css" href="{% static "css/bulma-nav.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/custom_styles.css" %}" />
+{% endblock %}
+{% block title %} InfiniaSmart {% endblock %}
+{% block usertools %}
+    {% if has_permission %}
+      <div id="user-tools">
+        {% include 'admin/admin_nav_bar.html' %}
+      </div>
+    {% endif %}
+{% endblock %}

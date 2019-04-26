@@ -1,0 +1,20 @@
+{% extends 'admin/change_list.html' %}
+{% load i18n admin_static admin_urls %}
+
+{% block object-tools-items %}
+    {{  block.super }}
+    {% if client_id %}
+        <li>
+            <form action="{% url 'wifiportal:hotspotView' client_id %}" method='post' target="_blank" name="previewForm99">
+                <input name="mac" value="4C:32:75:9D:E8:D3" type="hidden"/>
+                <input name="link_login" value="/" type="hidden"/>
+                <input name="link_login_only" value="/" type="hidden"/>
+                <input name="mac_esc" value="/" type="hidden"/>
+                <input name="chap_id" value="chapper" type="hidden"/>
+                <input name="chap_challenge" value="chaplin" type="hidden"/>
+                <input name="blocked" value="False" type="hidden"/>
+                <a href="#" onclick="document.previewForm99.submit()">Preview  ◉_◉</a>
+            </form>
+        </li>
+    {% endif %}
+{% endblock %}

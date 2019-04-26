@@ -1,0 +1,113 @@
+#color {
+    background-color: #FF6D00; //A700
+    /*background-color: #E65100; //900*/
+    /*background-color: #EF6C00; //800*/
+    /*background-color: #F57C00; //700*/
+    /*background-color: #FB8C00; //600*/
+    /*background-color: #FF9800; //500*/
+    /*background-color: #FFB74D; //300*/
+}
+
+:root {
+    --color-800: #e53935;
+    --color-700: #e54945;
+    --color-600: #e55955;
+    --color-500: #e56965;
+    --color-400: #e57975;
+    --color-300: #e58985;
+    --secondaryColor-500: #FF9800;
+    --secondaryColor-600: #FB8C00;
+    --secondaryColor-700: #FFAB00;
+    --secondaryColor-800: #EF6C00;
+}
+
+.one {
+    background-color: var(--color-700);
+}
+
+#header {
+    background-color: var(--color-700);
+    color: white;
+}
+
+.admin-interface #header {
+    min-height: 42px;
+}
+
+div.breadcrumbs {
+   background: var(--color-300);
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #fff;
+}
+.login #header {
+
+}
+
+.login #header h1 {
+    font-size: 20px !important;
+}
+
+.login #container {
+    box-shadow: 3px 15px 25px -12px #777;
+    border: None;
+}
+
+body.login {
+    background-image: url('/static/images/marketing.jpg');
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: var(--color-500);
+}
+
+.button:active, input[type=submit]:active, input[type=button]:active,
+.button:focus, input[type=submit]:focus, input[type=button]:focus,
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: var(--color-800);
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: var(--color-500);
+}
+
+.object-tools a:hover {
+    background-color: var(--color-500);
+}
+
+a:link, a:visited {
+    /*color: var(--color-500);*/
+}
+
+.dashboard #content {
+    width: 70%;
+}
+
+#content {
+
+}
+
+.selector-chosen h2 {
+    background: var(--color-500) !important;
+    border: none !important;
+}
+
+.selector-chosen a.active.selector-clearall:hover {
+    /*color: #c00710;*/
+}
+
+#site-name>a {
+    text-align: center;
+}
+
+#header {
+    overflow: inherit;
+}
+
+.navbar-dropdown {
+    z-index: 1001;
+}

@@ -1,0 +1,16 @@
+{% load static %}
+<div class="form animated" id="advertisement-image">
+      <div style="text-align: center; padding-top: 5px">
+          <img style="padding-top:1em" width="100%" src="{{ advertisement_image.url }}" />
+          <button class="button is-danger is-rounded" type="submit" id="id_passwordSubmitButton" onclick="return proceedFromAdvertisementPage()">Proceed</button>
+    </div>
+</div>
+<script>
+    function proceedFromAdvertisementPage(evt) {
+                    nextFormPlease(
+                        document.getElementById('advertisement-image'),
+                        document.getElementById('id_todaysSpecialButton')
+                    );
+        return False
+    }
+</script>
